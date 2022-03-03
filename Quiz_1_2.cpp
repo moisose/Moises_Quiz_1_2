@@ -121,6 +121,7 @@ class Noticia {
             return reportero;
         } 
 
+        // funcion que sera implementada en las hijas
         virtual void getInfo() = 0;
 };
 
@@ -163,19 +164,29 @@ class NoticiaDigital: public Noticia{
     private:
         vector<Media> media;
     public:
+        // se quiere instanciar con solo un objeto media, luego se pueden agregar mas
         NoticiaDigital(string tit, string fech, string rep, Media med) {
             titulo = tit;
             fecha = fech;
             reportero = rep;
             media.push_back(med);
         }
+        // se quiere instanciar con un vector ya hecho con medias adentro
+        NoticiaDigital(string tit, string fech, string rep, vector<Media> med) {
+            titulo = tit;
+            fecha = fech;
+            reportero = rep;
+            media = med;
+        }
 
+        // se quiere instanciar sin media, luego se puede agregar
         NoticiaDigital(string tit, string fech, string rep) {
             titulo = tit;
             fecha = fech;
             reportero = rep;
         }
         
+        // agregar un objeto media al vector de media
         void addMedia(Media med){
             media.push_back(med);
         }
@@ -191,6 +202,10 @@ class NoticiaDigital: public Noticia{
             cout << "----------------------" << endl;
             cout << "{\n-> Titulo: " << titulo << "\n-> Fecha: " << fecha <<
             "\n-> Reportero: " << reportero << "\n-> Archivos media:" << endl;
+
+            if (media.size() == 0){
+                cout<< "AUN NO HAY MEDIA EN ESTA NOTICIA" << endl;
+            }
 
             for(int i = 0; i < media.size(); i++){
                 cout<< "\t- Tipo de media: {" << mediaName(media[i].getTipo()) 
@@ -237,11 +252,11 @@ class NoticiaRadio: public Noticia{
 
 int main(){
     // objeto tipo paper
-    NoticiaPaper noticia1("Delicias de Mamedyarov", "02/03/2022", "Leontxo Garcia", "C:/Users/Moises/Pictures/Saved Pictures");
+    NoticiaPaper noticia1("Delicias de Mamedyarov", "02/03/2022", "Leontxo Garcia", "C:/Users/Moises/Pictures/Saved Pictures/88561.jpeg");
 
     // media que se utiliza en noticia digital
-    Media archivo(FOTO, "C:/Users/Moises/Pictures/hola", "Moises", "2022");
-    Media archivo2(VIDEO, "D:/Films/THE LORD OF THE RINGS/LSÑRDLSNLLS1-StationTv", "Moises", "2022");
+    Media archivo(FOTO, "C:/Users/Moises/Pictures/hola.jpg", "Moises", "2022");
+    Media archivo2(VIDEO, "https://youtu.be/F4neLJQC1_E", "Moises", "2022");
     Media archivo3(AUDIO, "https://theproaudiofiles.com/chorus-plugins/", "Moises", "2020");
 
     //NoticiaDigital noticia2("Costa Rica se incorpora cada vez mas en estrategia BIM", "19/02/2022", "Jocelyn Espinoza", archivo);
